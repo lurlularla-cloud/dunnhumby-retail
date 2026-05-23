@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunnhumby 리테일 분석 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Dunnhumby 리테일 분석 대시보드</h1>
+
+    <!-- 주요 지표 -->
+    <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-gray-500">총 매출</h3>
+            <p class="text-2xl font-bold">$1.4M</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-gray-500">활성 고객</h3>
+            <p class="text-2xl font-bold">2,500</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-gray-500">평균 객단가</h3>
+            <p class="text-2xl font-bold">$3.10</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-gray-500">이탈 위험률</h3>
+            <p class="text-2xl font-bold text-red-500">21%</p>
+        </div>
+    </div>
+
+    <!-- 차트 영역 -->
+    <div class="grid grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-semibold mb-4">주차별 매출 추이</h3>
+            <canvas id="weeklySalesChart"></canvas>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-semibold mb-4">고객 세그먼트 분포</h3>
+            <canvas id="segmentChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // 매출 트렌드 차트
+        const ctx1 = document.getElementById('weeklySalesChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                datasets: [{ label: '매출액 ($)', data: [12000, 19000, 15000, 25000, 22000], borderColor: '#3b82f6' }]
+            }
+        });
+
+        // 세그먼트 차트
+        const ctx2 = document.getElementById('segmentChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['VIP', 'Loyal', 'Potential', 'At Risk'],
+                datasets: [{ data: [559, 841, 575, 525], backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'] }]
+            }
+        });
+    </script>
+</body>
+</html>
