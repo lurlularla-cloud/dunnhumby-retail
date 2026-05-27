@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunnhumby 통합 분석 리포트 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="bg-blue-900 text-white p-6 shadow-lg mb-8">
+        <h1 class="text-3xl font-bold">Dunnhumby 통합 분석 리포트 대시보드</h1>
+        <p class="text-blue-200 mt-2">EDA 및 심화 비즈니스 분석 결과 요약</p>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 space-y-12 pb-12">
+        <!-- 섹션 템플릿: 차트 + 분석내용 -->
+
+        <!-- 성과 요약 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-xl shadow">
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-blue-800">1. 성과 요약 및 주차별 매출</h2>
+                <canvas id="weeklyChart"></canvas>
+            </div>
+            <div class="space-y-4">
+                <h3 class="font-bold text-lg">분석 요약</h3>
+                <p class="text-gray-600">주차별 매출은 시즌성 이벤트 중심의 스파이크가 발생하며 안정적인 추이를 보입니다.</p>
+                <h3 class="font-bold text-lg text-blue-700">인사이트</h3>
+                <p class="text-gray-600">특정 주차의 매출 스파이크는 계절적 요인과 연계되어 있습니다.</p>
+                <h3 class="font-bold text-lg text-green-700">액션 플랜</h3>
+                <p class="text-gray-600">매출 변동폭이 큰 주간을 선제적으로 파악하여 프로모션 재고를 최적화하십시오.</p>
+            </div>
+        </section>
+
+        <!-- RFM 분석 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-xl shadow">
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-blue-800">2. 고객 세분화 (RFM)</h2>
+                <canvas id="rfmChart"></canvas>
+            </div>
+            <div class="space-y-4">
+                <h3 class="font-bold text-lg">분석 요약</h3>
+                <p class="text-gray-600">VIP 그룹은 전체의 22%이나 인당 구매액은 At Risk의 13배에 달합니다.</p>
+                <h3 class="font-bold text-lg text-blue-700">인사이트</h3>
+                <p class="text-gray-600">VIP/Loyal 그룹이 매출의 80%를 견인합니다.</p>
+                <h3 class="font-bold text-lg text-green-700">액션 플랜</h3>
+                <p class="text-gray-600">VIP 전담 프리미엄 서비스를 제공하고, At Risk 그룹에는 즉시 리마인드 쿠폰을 발송하십시오.</p>
+            </div>
+        </section>
+
+        <!-- MBA 분석 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-xl shadow">
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-blue-800">3. 시장 장바구니 분석 (MBA)</h2>
+                <canvas id="mbaChart"></canvas>
+            </div>
+            <div class="space-y-4">
+                <h3 class="font-bold text-lg">분석 요약</h3>
+                <p class="text-gray-600">델리 육류와 치즈의 조합 등 Lift 지표가 높은 품목들이 확인되었습니다.</p>
+                <h3 class="font-bold text-lg text-blue-700">인사이트</h3>
+                <p class="text-gray-600">상품 간 동시 구매 패턴이 명확히 존재합니다.</p>
+                <h3 class="font-bold text-lg text-green-700">액션 플랜</h3>
+                <p class="text-gray-600">연관 상품군을 인접 진열하고, 동시 구매 시 추가 포인트를 적립해주는 크로스셀링을 강화하십시오.</p>
+            </div>
+        </section>
+
+        <!-- 마케팅 효율 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-8 rounded-xl shadow">
+            <div>
+                <h2 class="text-2xl font-bold mb-6 text-blue-800">4. 마케팅 캠페인 효율</h2>
+                <canvas id="mktChart"></canvas>
+            </div>
+            <div class="space-y-4">
+                <h3 class="font-bold text-lg">분석 요약</h3>
+                <p class="text-gray-600">캠페인 노출과 매출은 상관계수 0.76의 강한 양의 상관관계를 보입니다.</p>
+                <h3 class="font-bold text-lg text-blue-700">인사이트</h3>
+                <p class="text-gray-600">쿠폰 사용자의 매출이 미사용자 대비 3.5배 높습니다.</p>
+                <h3 class="font-bold text-lg text-green-700">액션 플랜</h3>
+                <p class="text-gray-600">디지털 마케팅 비중을 20% 이상 확대하고, 타겟 정교화를 통해 마케팅 ROI를 극대화하십시오.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        new Chart(document.getElementById('weeklyChart'), { type: 'line', data: { labels: ['W1', 'W2', 'W3', 'W4', 'W5'], datasets: [{ label: '매출액($)', data: [12000, 19000, 15000, 25000, 22000], borderColor: '#2563eb' }] } });
+        new Chart(document.getElementById('rfmChart'), { type: 'bar', data: { labels: ['VIP', 'Loyal', 'Potential', 'At Risk'], datasets: [{ label: '고객 수', data: [559, 841, 575, 525], backgroundColor: '#3b82f6' }] } });
+        new Chart(document.getElementById('mbaChart'), { type: 'bar', data: { labels: ['DELI-CHEESE', 'DINNER-MEAT', 'BEANS-VEG'], datasets: [{ label: 'Lift', data: [4.86, 4.16, 4.02], backgroundColor: '#10b981' }] } });
+        new Chart(document.getElementById('mktChart'), { type: 'bar', data: { labels: ['미사용', '사용자'], datasets: [{ label: '평균 매출 ($)', data: [1126, 3947], backgroundColor: ['#94a3b8', '#8b5cf6'] }] } });
+    </script>
+</body>
+</html>
